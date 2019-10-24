@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES6声明变量的方式</title>
+</head>
+
+<body>
+    <script>
+        // 未声明变量 & 捕获异常
+        var log = '能够执行到这里？'
+
+        try {
+            console.log(myname);
+            alert('不会执行') // 上行代码捕获到异常后此行代码也不会执行
+        } catch (e) {
+            console.log(e); // 日志输出
+            console.warn(e); // 警告黄色输出
+            console.error(e); // 错误红色输出
+            console.table(e); // 表格的方式输出，包含了错误在文件中第几行第几列
+        }
+        console.log(log); // 能够执行到这里？ 由于捕获了异常所以可以执行这行代码
+    </script>
+</body>
+
+</html>
