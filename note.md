@@ -49,3 +49,49 @@ console.log(myName); // Uncaught ReferenceError: myName is not defined
 ```
 
 代码地址 [git repo](https://github.com/kirin-yuen/js-basic-padding.git)
+commit 5c9642bfdfdc73be20543b8c39bddd58ce308bec
+
+
+================分割线================
+
+### var 声明变量
+* 变量提升
+* 可重复声明并赋值
+```js
+// var 声明变量
+console.log(log); // var 声明的变量会变量提升，因此这里不会报错而是输出默认值 undefined
+var log = '存在'
+console.log(log); // 存在
+var log = "已成功改变"; // 可重复声明 var，不会报错
+console.log(log); // 已成功改变
+var log; // 不赋值不改变值
+console.log(log); // 已成功改变
+```
+
+### let 声明变量
+* **变量不会提升**
+* **不可重复声明并赋值**
+```js
+// var 声明变量
+console.log(log); // var 声明的变量会变量提升，因此这里不会报错而是输出默认值 undefined
+var log = '存在'
+console.log(log); // 存在
+var log = "已成功改变"; // 可重复声明 var，不会报错
+console.log(log); // 已成功改变
+var log; // 不赋值不改变值
+console.log(log); // 已成功改变
+
+// let 声明变量
+console.log(log1); // 不能在用 let 声明变量前访问 Uncaught ReferenceError: Cannot access 'log1' before initialization，let 声明的变量不存在提升
+let log1 = 'let 声明的变量'; 
+
+let log = '修改 var 变量的值'; // 不可重复声明 var 或 let 声明过的变量 Uncaught SyntaxError: Identifier 'log' has already been declared， SyntaxError 会导致整个程序不运行
+
+// 无论是 var 还是 let 声明过的变量，都不能重复声明
+let log1 = '重新赋值'; // Uncaught SyntaxError: Identifier 'log1' has already been declared
+let log = '重新赋值'; // Uncaught SyntaxError: Identifier 'log' has already been declared
+```
+
+进入语法分析时:
+* 如果**语法错误**`SyntaxError`，则整个程序不会运行;
+* 如果**引用错误**`ReferenceError`，只会导致错误后面的代码无法执行;
