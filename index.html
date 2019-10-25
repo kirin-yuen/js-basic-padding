@@ -5,21 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ES6声明变量的方式</title>
+    <title>ES6 解构</title>
 </head>
 
 
 <body>
-    <button id="var">var 声明变量</button>
-    <button id="let">let 声明变量</button>
-    <button id="closure">闭包声明变量</button>
 
     <script>
-        // 常量
-        const log = '常量会被改变吗？';
-        log = '不会'; // Uncaught TypeError: Assignment to constant variable.
-        console.log(log);
-        
+        // 数组解构赋值
+        // 传统写法
+        let arr = [1, 2, 3, 4];
+        let a = arr[0];
+        let b = arr[1];
+        let c = arr[2];
+        let d = arr[3];
+
+        console.log(a, b, c, d); // 1,2,3,4
+
+        // 解构赋值，按照数组元素顺序，依次赋值给左侧数组里的变量
+        var [e, f, g, h] = arr;
+        console.log(e, f, g, h); // 1,2,3,4
+
+        var [e, f, g, h, i] = arr;
+        console.log(i); // undefined 由于数组元素没有第五个值，因此，i 只声明没赋值，所以是 undefined
+
+        // 可以使用 es6 的默认值给变量赋默认值
+        var [e, f, g, h, i="我是默认值"] = arr;
+        console.log(i); // 我是默认值
+
+
     </script>
 </body>
 
