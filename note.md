@@ -92,7 +92,7 @@ let log1 = '重新赋值'; // Uncaught SyntaxError: Identifier 'log1' has alread
 let log = '重新赋值'; // Uncaught SyntaxError: Identifier 'log' has already been declared
 ```
 
-进入语法分析时:
+进入**语法分析**时:
 * 如果**语法错误**`SyntaxError`，则整个程序不会运行;
 * 如果**引用错误**`ReferenceError`，只会导致错误后面的代码无法执行;
 
@@ -117,7 +117,7 @@ console.log(log1); // Uncaught ReferenceError: log1 is not defined，即使是 t
 ```
 * for 循坏
   * var 声明的变量没有局部作用域，因此控制台可以输出最后计算的值
-  * let 声明的变量在 for 循环中使用是存在局部作用域（离他最近的大括号内），因此这里不会覆盖 var 声明的 i，也不会出现重复声明 i
+  * let 声明的变量在 for 循环中使用是存在**局部作用域（离他最近的大括号内）**，因此这里不会覆盖 var 声明的 i，也不会出现重复声明 i
 ```js
 // var 声明的变量没有局部作用域，因此控制台可以输出最后计算的值
 for (var i = 0; i < 3; i++) {}
@@ -132,7 +132,7 @@ console.log(i); // 3 这里输出的 i 是 var 声明的 i
 
 * 闭包
   * 使用 var 声明 for 循环的初始变量 j，最终 j 点击按钮的时候会输出计算后的最终值
-  * 使用 let 声明 for 循环的初始变量 j，由于存在块级别作用域，会将 j 的值锁死在当前作用域内，因此点击会输出对应的 j 值
+  * 使用 let 声明 for 循环的初始变量 j，由于**存在块级别作用域，会将 j 的值锁死在当前作用域内**，因此点击会输出对应的 j 值
 ```js
 // 使用 var 声明 for 循环的初始变量 j，最终 j 点击按钮的时候会输出计算后的最终值
 for (var j = 0; j < 2; j++) {
@@ -159,10 +159,13 @@ commit 3e68005f3f08cdc5249be9c1ebeff82e95bf23ea
 ================分割线================
 
 ### const 声明常量
-js 一直以来都没有常量这个概念，es6 加入了常量，让使用 const 声明的常量变量不能重新复制，多用于引入模块保存到常量
+js 一直以来都没有常量这个概念，es6 加入了常量，让使用 const 声明的常量变量**不能重新赋值**，多用于引入模块保存到常量
 ```js
 // 常量
 const log = '常量会被改变吗？';
 log = '不会'; // Uncaught TypeError: Assignment to constant variable.
 console.log(log);
 ```
+
+代码地址 [git repo](https://github.com/kirin-yuen/js-basic-padding.git)
+commit e6dbf861265b7b2901e1acd97fa1fdd1cbdbce2b
