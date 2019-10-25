@@ -15,43 +15,11 @@
     <button id="closure">闭包声明变量</button>
 
     <script>
-        // 全局作用域 & 函数作用域，
-
-        if (false) {
-            var log = "能否输出？"
-        }
-        console.log(log); // undefined 这里会有一个预解析（解析后会有一个语法树，再进入执行阶段）的过程，var 声明的变量会在执行前将变量提升到作用域上
-
-        if (false) {
-            let log1 = "能否输出？" // let 声明的变量只存在离他最近的大括号内
-        }
-        // console.log(log1); // Uncaught ReferenceError: log1 is not defined，即使是 true log1 这行还是会报错
-
-        console.warn('for 循环=============分割线');
-
-        // for 循环
-        // var 声明的变量没有局部作用域，因此控制台可以输出最后计算的值
-        for (var i = 0; i < 3; i++) {}
-        console.log(i); // 3
-
-        // let 声明的变量在 for 循环中使用是存在局部作用域（离他最近的大括号内），因此这里不会覆盖 var 声明的 i，也不会出现重复声明 i
-        for (let i = 0; i < 5; i++) {
-            console.log(i); // 1, 2, 3, 4, 5，这里输出的是 let 里的 i
-        }
-        console.log(i); // 3 这里输出的 i 是 var 声明的 i
-
-        console.warn('闭包=============分割线');
-        for (var j = 0; j < 2; j++) {
-            document.querySelector('#var').addEventListener('click', () => console.log(j))
-        }
-        for (let j = 0; j < 2; j++) {
-            document.querySelector('#let').addEventListener('click', () => console.log(j))
-        }
-        for (var k = 0; k < 2; k++) {
-            (function(param){
-                document.querySelector('#closure').addEventListener('click', () => console.log(param))
-            })(k)
-        }
+        // 常量
+        const log = '常量会被改变吗？';
+        log = '不会'; // Uncaught TypeError: Assignment to constant variable.
+        console.log(log);
+        
     </script>
 </body>
 

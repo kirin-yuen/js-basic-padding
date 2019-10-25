@@ -153,4 +153,16 @@ for (let j = 0; j < 2; j++) {
 
 **let 的写法明显优雅与闭包，但 let 声明变量性能会稍逊于 var，因为编译时会自动生成闭包**
 
+代码地址 [git repo](https://github.com/kirin-yuen/js-basic-padding.git)
+commit 3e68005f3f08cdc5249be9c1ebeff82e95bf23ea
+
 ================分割线================
+
+### const 声明常量
+js 一直以来都没有常量这个概念，es6 加入了常量，让使用 const 声明的常量变量不能重新复制，多用于引入模块保存到常量
+```js
+// 常量
+const log = '常量会被改变吗？';
+log = '不会'; // Uncaught TypeError: Assignment to constant variable.
+console.log(log);
+```
