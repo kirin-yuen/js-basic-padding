@@ -95,3 +95,62 @@ let log = '重新赋值'; // Uncaught SyntaxError: Identifier 'log' has already 
 进入语法分析时:
 * 如果**语法错误**`SyntaxError`，则整个程序不会运行;
 * 如果**引用错误**`ReferenceError`，只会导致错误后面的代码无法执行;
+
+代码地址 [git repo](https://github.com/kirin-yuen/js-basic-padding.git)
+commit f75661ecbff1687aa05df88ed06961a22d309d21
+
+================分割线================
+
+### 作用域
+* js 里面只有`全局作用域`和`函数作用域`，没有局部作用域
+* js 运行会有一个预解析过程，解析后会有一个语法树，再进入执行阶段
+```js
+if (false) {
+    var log = "能否输出？"
+}
+console.log(log); // undefined 这里会有一个预解析（解析后会有一个语法树，再进入执行阶段）的过程，var 声明的变量会在执行前将变量提升到作用域上
+
+if (false) {
+    let log1 = "能否输出？" // let 声明的变量只存在离他最近的大括号内
+}
+console.log(log1); // Uncaught ReferenceError: log1 is not defined，即使是 true log1 这行还是会报错
+```
+* for 循坏
+  * var 声明的变量没有局部作用域，因此控制台可以输出最后计算的值
+  * let 声明的变量在 for 循环中使用是存在局部作用域（离他最近的大括号内），因此这里不会覆盖 var 声明的 i，也不会出现重复声明 i
+```js
+// var 声明的变量没有局部作用域，因此控制台可以输出最后计算的值
+for (var i = 0; i < 3; i++) {}
+console.log(i); // 3
+
+// let 声明的变量在 for 循环中使用是存在局部作用域（离他最近的大括号内），因此这里不会覆盖 var 声明的 i，也不会出现重复声明 i
+for (let i = 0; i < 5; i++) {
+    console.log(i); // 1, 2, 3, 4, 5，这里输出的是 let 里的 i
+}
+console.log(i); // 3 这里输出的 i 是 var 声明的 i
+```
+
+* 闭包
+  * 使用 var 声明 for 循环的初始变量 j，最终 j 点击按钮的时候会输出计算后的最终值
+  * 使用 let 声明 for 循环的初始变量 j，由于存在块级别作用域，会将 j 的值锁死在当前作用域内，因此点击会输出对应的 j 值
+```js
+// 使用 var 声明 for 循环的初始变量 j，最终 j 点击按钮的时候会输出计算后的最终值
+for (var j = 0; j < 2; j++) {
+    document.querySelector('#var').addEventListener('click', () => console.log(j))
+}
+// var 声明的也可使用闭包解决没全局作用域的问题
+for (var k = 0; k < 2; k++) {
+    (function(param){
+        document.querySelector('#closure').addEventListener('click', () => console.log(param))
+    })(k)
+}
+// 使用 let 声明 for 循环的初始变量 j，由于存在块级别作用域，会将 j 的值锁死在当前作用域内，因此点击会输出对应的 j 值
+// let 的写法明显优雅与闭包，但 let 声明变量性能会稍逊于 var，因为编译时会自动生成闭包
+for (let j = 0; j < 2; j++) {
+    document.querySelector('#let').addEventListener('click', () => console.log(j))
+}
+```
+
+**let 的写法明显优雅与闭包，但 let 声明变量性能会稍逊于 var，因为编译时会自动生成闭包**
+
+================分割线================

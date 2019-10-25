@@ -10,25 +10,48 @@
 
 
 <body>
+    <button id="var">var 声明变量</button>
+    <button id="let">let 声明变量</button>
+    <button id="closure">闭包声明变量</button>
+
     <script>
-        // var 声明变量
-        console.log(log); // var 声明的变量会变量提升，因此这里不会报错而是输出默认值 undefined
-        var log = '存在'
-        console.log(log); // 存在
-        var log = "已成功改变"; // 可重复声明 var，不会报错
-        console.log(log); // 已成功改变
-        var log; // 不赋值不改变值
-        console.log(log); // 已成功改变
+        // 全局作用域 & 函数作用域，
 
-        // let 声明变量
-        console.log(log1); // 不能在用 let 声明变量前访问 Uncaught ReferenceError: Cannot access 'log1' before initialization，let 声明的变量不存在提升
-        let log1 = 'let 声明的变量'; 
+        if (false) {
+            var log = "能否输出？"
+        }
+        console.log(log); // undefined 这里会有一个预解析（解析后会有一个语法树，再进入执行阶段）的过程，var 声明的变量会在执行前将变量提升到作用域上
 
-        let log = '修改 var 变量的值'; // 不可重复声明 var 或 let 声明过的变量 Uncaught SyntaxError: Identifier 'log' has already been declared， SyntaxError 会导致整个程序不运行
+        if (false) {
+            let log1 = "能否输出？" // let 声明的变量只存在离他最近的大括号内
+        }
+        // console.log(log1); // Uncaught ReferenceError: log1 is not defined，即使是 true log1 这行还是会报错
 
-        // 无论是 var 还是 let 声明过的变量，都不能重复声明
-        let log1 = '重新赋值'; // Uncaught SyntaxError: Identifier 'log1' has already been declared
-        let log = '重新赋值'; // Uncaught SyntaxError: Identifier 'log' has already been declared
+        console.warn('for 循环=============分割线');
+
+        // for 循环
+        // var 声明的变量没有局部作用域，因此控制台可以输出最后计算的值
+        for (var i = 0; i < 3; i++) {}
+        console.log(i); // 3
+
+        // let 声明的变量在 for 循环中使用是存在局部作用域（离他最近的大括号内），因此这里不会覆盖 var 声明的 i，也不会出现重复声明 i
+        for (let i = 0; i < 5; i++) {
+            console.log(i); // 1, 2, 3, 4, 5，这里输出的是 let 里的 i
+        }
+        console.log(i); // 3 这里输出的 i 是 var 声明的 i
+
+        console.warn('闭包=============分割线');
+        for (var j = 0; j < 2; j++) {
+            document.querySelector('#var').addEventListener('click', () => console.log(j))
+        }
+        for (let j = 0; j < 2; j++) {
+            document.querySelector('#let').addEventListener('click', () => console.log(j))
+        }
+        for (var k = 0; k < 2; k++) {
+            (function(param){
+                document.querySelector('#closure').addEventListener('click', () => console.log(param))
+            })(k)
+        }
     </script>
 </body>
 
